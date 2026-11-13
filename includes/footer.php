@@ -45,7 +45,9 @@
     </div>
 </footer>
 
+<script>window.BM = { base: "<?= e(BASE_URL) ?>" };</script>
 <script src="<?= url('assets/js/script.js') ?>"></script>
+<script src="<?= url('assets/js/compare.js') ?>"></script>
 <?php foreach (($extraScripts ?? []) as $src): ?>
 <script src="<?= url($src) ?>"></script>
 <?php endforeach; ?>
