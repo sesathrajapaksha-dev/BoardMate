@@ -21,11 +21,14 @@ $avg           = (float)$b['avg_rating'];
 $cnt           = (int)$b['review_count'];
 $beds          = (int)$b['available_beds'];
 $viewer        = current_user();
-$isOwnerView   = $viewer && $viewer['role'] === 'owner' && (int)$viewer['user_id'] === (int)$b['owner_id'];
+$isOwnerView   = $viewer && $viewer['role'] === 'owner' && (int)$viewer['user_id'] === (int)
+require_once __DIR__ . '/../includes/review_functions.php';
+$myReview = ($viewer && $viewer['role'] === 'student') ? get_user_review((int)$viewer['user_id'], $id) : null;
+$b['owner_id'];
 $telHref       = 'tel:' . preg_replace('/[^\d+]/', '', $b['contact_number']);
 
 $pageTitle    = $b['boarding_name'];
-$extraScripts = ['assets/js/gallery.js'];
+$extraScripts = ['assets/js/gallery.js', 'assets/js/review.js', 'assets/js/owner.js'];
 include __DIR__ . '/../includes/header.php';
 ?>
 <section class="page-section detail-section">
@@ -113,13 +116,15 @@ include __DIR__ . '/../includes/header.php';
                     </div>
 
                     <!-- Review form is added in Phase 5 -->
-                    <div id="review-form-slot">
+                                        <div id="review-form-slot">
                         <?php if (!$viewer): ?>
                             <div class="notice"><i class="fa-solid fa-circle-info"></i>
                                 <span><a href="<?= url('login.php') ?>">Log in</a> as a student to rate and review this boarding.</span></div>
                         <?php elseif ($viewer['role'] === 'student'): ?>
+                            <?php include __DIR__ . '/../includes/review_form.php'; ?>
+                        <?php else: ?>
                             <div class="notice"><i class="fa-solid fa-circle-info"></i>
-                                <span>The review form will appear here after Phase 5.</span></div>
+                                <span>Only student accounts can rate and review boardings.</span></div>
                         <?php endif; ?>
                     </div>
 
