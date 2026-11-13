@@ -11,6 +11,11 @@ include __DIR__ . '/../includes/header.php';
             <h1>Welcome, <?= e($user['full_name']) ?></h1>
             <p>You are logged in as a <strong>student</strong>. The full dashboard arrives in Phase 5.</p>
         </div>
+                <div class="panel" style="margin-bottom:20px">
+            <h3>Quick actions</h3>
+            <a href="<?= url('owner/add_boarding.php') ?>" class="btn btn-accent"><i class="fa-solid fa-plus"></i> Add New Boarding</a>
+            <a href="<?= url('owner/my_boardings.php') ?>" class="btn btn-primary"><i class="fa-solid fa-list"></i> My Boardings</a>
+        </div>
         <div class="panel">
             <h3>Your account</h3>
             <ul class="info-list">
