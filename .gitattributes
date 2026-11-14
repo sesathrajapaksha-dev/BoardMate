@@ -1,0 +1,6 @@
+# Keep line endings consistent (Windows CRLF vs Linux LF) so Git stops showing untouched files as modified
+* text=auto
+*.sql text eol=lf
+*.php text eol=lf
+*.js text eol=lf
+*.css text eol=lf

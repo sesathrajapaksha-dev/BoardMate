@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/boarding_manage.php';
+require_once __DIR__ . '/../includes/review_functions.php';
 
 $id = (int)($_GET['id'] ?? 0);
 $b  = $id > 0 ? get_boarding($id) : null;
@@ -21,10 +22,8 @@ $avg           = (float)$b['avg_rating'];
 $cnt           = (int)$b['review_count'];
 $beds          = (int)$b['available_beds'];
 $viewer        = current_user();
-$isOwnerView   = $viewer && $viewer['role'] === 'owner' && (int)$viewer['user_id'] === (int)
-require_once __DIR__ . '/../includes/review_functions.php';
-$myReview = ($viewer && $viewer['role'] === 'student') ? get_user_review((int)$viewer['user_id'], $id) : null;
-$b['owner_id'];
+$isOwnerView   = $viewer && $viewer['role'] === 'owner' && (int)$viewer['user_id'] === (int)$b['owner_id'];
+$myReview      = ($viewer && $viewer['role'] === 'student') ? get_user_review((int)$viewer['user_id'], $id) : null;
 $telHref       = 'tel:' . preg_replace('/[^\d+]/', '', $b['contact_number']);
 
 $pageTitle    = $b['boarding_name'];
@@ -115,8 +114,7 @@ include __DIR__ . '/../includes/header.php';
                         </div>
                     </div>
 
-                    <!-- Review form is added in Phase 5 -->
-                                        <div id="review-form-slot">
+                    <div id="review-form-slot">
                         <?php if (!$viewer): ?>
                             <div class="notice"><i class="fa-solid fa-circle-info"></i>
                                 <span><a href="<?= url('login.php') ?>">Log in</a> as a student to rate and review this boarding.</span></div>

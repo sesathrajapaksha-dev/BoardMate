@@ -24,6 +24,21 @@ if ($username === '' || $password === '') {
     redirect('login.php');
 }
 
+// ---------- Server-side lockout ----------
+// The session counter above is bypassed by simply discarding the cookie, so failures are also
+// counted in the activity log: too many recent failures for this username from this IP = locked.
+$failDetails = mb_substr("Failed login for: {$username}", 0, 255);
+$recent = getDB()->prepare(
+    "SELECT COUNT(*) FROM activity_logs
+     WHERE action = 'LOGIN_FAILED' AND details = ? AND ip_address <=> ?
+       AND created_at > (NOW() - INTERVAL " . (int)LOCK_SECONDS . " SECOND)"
+);
+$recent->execute([$failDetails, $_SERVER['REMOTE_ADDR'] ?? null]);
+if ((int)$recent->fetchColumn() >= MAX_FAILS) {
+    flash('error', 'Too many failed attempts. Please try again in a few minutes.');
+    redirect('login.php');
+}
+
 // ---------- Look up the user (prepared statement) ----------
 $stmt = getDB()->prepare(
     'SELECT user_id, full_name, username, email, password, role FROM users WHERE username = ? LIMIT 1'
