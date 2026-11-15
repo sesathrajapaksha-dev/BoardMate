@@ -1,3 +1,13 @@
+## 👥 Project Team & Contributors
+
+This project was successfully developed and contributed by the following team members:
+
+* **Sesath Rajapaksha**
+* **Tharuka Dilshan**
+* **Manoj Dilshan**
+* **Akarsha Aththanayaka**
+* **Chamod Sandeepa**
+
 # BoardMate - Find. Compare. Stay.
 
 A boarding discovery and management platform for University of Moratuwa students.
