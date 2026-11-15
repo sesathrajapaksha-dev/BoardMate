@@ -3,8 +3,8 @@
 This project was successfully developed and contributed by the following team members:
 
 * **Sesath Rajapaksha**
-* **Tharuka Dilshan**
 * **Manoj Dilshan**
+* **Tharuka Dilshan**
 * **Akarsha Aththanayaka**
 * **Chamod Sandeepa**
 
